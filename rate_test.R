@@ -12,7 +12,7 @@ SRdata <- read.csv(file = "Data/SRquery.csv", header = TRUE)
 Adata <- read.csv(file = "Data/Adata.csv", header = TRUE)
 
 ## generate a basic plot to examine the data
-plot1 <- ggplot(data = SRdata, aes(Year, Count)) + geom_line(col = "red") + geom_line(data = statdata, aes(Year, Count/1000), col = "blue") + theme_minimal()
+plot1 <- ggplot(data = SRdata, aes(Year, Count)) + geom_line(col = "red") + geom_line(data = statdata, aes(Year, Count/1000), col = "blue") + geom_line(data = Adata, aes(Year, Count/1000), col = "green") + theme_minimal()
 
 ## Perform regressions on each series
 regP <- lm(formula = Count~Year, data = statdata)
@@ -24,7 +24,7 @@ rssP <- sum(residuals(regP)^2)
 rssA <- sum(residuals(regA)^2)
 rssB <- sum(residuals(regB)^2)
 
-## Chow test
+## Chow test. Null hypothesis  = no structural break
 
 ## k is the number of parameters for our model
 k=2

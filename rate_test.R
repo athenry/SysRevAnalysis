@@ -10,15 +10,24 @@ statdata <- read.csv(file = "Data/statdata.csv", header = TRUE)
 SRdata <- read.csv(file = "Data/SRdata.csv", header = TRUE)
 Adata <- read.csv(file = "Data/Adata.csv", header = TRUE)
 
-## generate a basic plot to examine the data
-plot1 <- ggplot(data = SRdata, aes(Year, Count)) + geom_line(col = "red") + geom_line(data = statdata, aes(Year, Count/1000), col = "blue") + geom_point(data = Adata, aes(Year, Count/1000), col = "green") + theme_minimal()
+alldata <- merge(statdata, SRdata, by = "Year")
+colnames(alldata) <- c("Year", "allpubs", "SR")
+alldata$share <- (alldata$SR / alldata$allpubs) * 100
 
+## generate a basic plot to examine the data
+plot1 <- ggplot(data = alldata) + geom_line(aes(Year, SR), col = "red") + geom_line(aes(Year, allpubs/1000), col = "blue") + theme_minimal()
 plot1
 
-## Perform regressions on each series
-regP <- lm(formula = Count~Year, data = statdata)
-regA <- lm(formula = Count~Year, data = Adata)
-regB <- lm(formula = Count~Year, data = SRdata)
+## Examine the change in proportion of articles which use SR methodology
+plot2 <- ggplot(data = alldata) + geom_line(aes(Year, share), col = "green")
+plot2
+
+## Perform a trend test to confirm that the share of articles using this methodology shows a pronoun
+
+## Perform regressions on each series, omitting intercept
+regP <- lm(formula = Count~Year - 1, data = subset(statdata, Year > 2014))
+regA <- lm(formula = Count~Year - 1, data = subset(Adata, Year > 2014))
+regB <- lm(formula = Count~Year - 1, data = subset(SRdata, Year >2014))
 
 ## Calculate the residual sum of squares for each regression
 rssP <- sum(residuals(regP)^2)

@@ -38,4 +38,6 @@ alldata$predValue <- df
 plot3 <- ggplot(data = alldata, aes(x=Year, y=share)) + geom_point() + geom_line(aes(x=Year, y=predValue)) + theme_minimal()
 plot3
 
-
+## bar graph of count of articles per year
+plot4 <- ggplot(data=alldata, aes(x=Year, y=SR)) + geom_col() + theme_minimal()
+plot4

@@ -1,10 +1,10 @@
 ## testing whether SR articles outperform their journals
 
-citation <- read.csv(file = "Data/citation.csv", header = TRUE, na)
+citation <- read.csv(file = "Data/citation.csv", header = TRUE)
 
-citedata <- na.omit(select(citation, Title, Published.Year, Journal, TC..pub.year...2., JIF..pub.year...2.))
+citedata <- na.omit(select(citation, Covidence.., Title, Published.Year, Journal, TC..pub.year...2., JIF..pub.year...2.))
 
-colnames(citedata) <- c("Title", "Year", "Journal", "TC", "JIF")
+colnames(citedata) <- c("Covidence", "Title", "Year", "Journal", "TC", "JIF")
 
 citedata$test <- (citedata$TC>citedata$JIF)
 

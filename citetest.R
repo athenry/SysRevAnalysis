@@ -8,7 +8,11 @@ colnames(citedata) <- c("Covidence", "Title", "Year", "Journal", "TC", "JIF")
 
 citedata$test <- (citedata$TC>citedata$JIF)
 
-ggplot(data = citedata) + geom_bar(aes(test)) + geom_text(stat = 'count', aes(x= test, label = ..count..)) + theme_minimal()
+plot5 <- ggplot(data = citedata) + geom_bar(aes(test)) + geom_text(stat = 'count', aes(x= test, label = ..count..)) + theme_minimal()
+plot5
 
-ggplot(data = citedata) + geom_point(aes(x=JIF, y=TC)) +geom_abline(slope = 1, intercept = 0,0) + theme_minimal()
+plot6 <- ggplot(data = citedata) + geom_point(aes(x=JIF, y=TC)) +geom_abline(slope = 1, intercept = 0,0) + theme_minimal()
+plot6
 
+## in case we want to include a table of the citation counts
+write.csv(citedata, file = "citedata.csv", quote = TRUE, row.names = FALSE)

@@ -16,11 +16,11 @@ alldata$share <- (alldata$SR / alldata$allpubs) * 100
 ##alldata$time <- (alldata$Year-2000)
 
 ## generate a basic plot to examine the data
-plot1 <- ggplot(data = alldata) + geom_point(aes(Year, SR), col = "red") + geom_point(aes(Year, allpubs/1000), col = "blue") + theme_minimal()
+plot1 <- ggplot(data = alldata) + geom_point(aes(Year, SR), col = "#007C41") + geom_point(aes(Year, allpubs/1000), col = "#FFDB05") + theme_minimal()
 plot1
 
 ## Examine the change in proportion of articles which use SR methodology
-plot2 <- ggplot(data = alldata) + geom_point(aes(x=Year, y=share)) + theme_minimal() 
+plot2 <- ggplot(data = alldata) + geom_point(aes(x=Year, y=share), color = "#007C41") + theme_minimal() 
 plot2
 
 ## perform a linear regression on the share of articles 
